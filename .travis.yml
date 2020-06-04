@@ -41,6 +41,7 @@ script:
   - git clone --recursive https://github.com/audacious-software/Atlas-Django.git atlas_holder/atlas
   - cd atlas_holder
   - mv atlas/local_settings.py-template atlas_holder/settings.py
+  - mv atlas/.pylintrc .pylintrc
   - python manage.py migrate
   - python manage.py test
   - pylint atlas
