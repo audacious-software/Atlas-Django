@@ -4,35 +4,33 @@ from django.contrib.gis.gdal import DataSource
 from django.contrib.gis.geos import GEOSGeometry
 from django.core.management.base import BaseCommand
 
-from atlas.models import PostalCode
+from atlas.models import Country
 
 class Command(BaseCommand):
     help = 'Imports boundaries from shapefile files.'
 
     def add_arguments(self, parser):
-        parser.add_argument('zipcode_file')
+        parser.add_argument('source', type=str)
 
     def handle(self, *args, **options):
-        shp_file = options['zipcode_file']
-
-        data_source = DataSource(shp_file)
+        data_source = DataSource(options['source'])
 
         layer = data_source[0]
 
         print(' ' + str(layer.fields))
 
         for feature in layer:
-            zcta = str(feature['ZCTA5CE10'])
+            name = str(feature['COUNTRY'])
 
-            postal_code = None
+            country = None
 
-            for code in PostalCode.objects.filter(name=zcta, country='us'):
-                postal_code = code
+            for item in Country.objects.filter(name=name):
+                country = item
 
-            if postal_code is None:
-                postal_code = PostalCode(name=zcta, country='us')
+            if country is None:
+                country = Country(name=name)
 
-            print('Importing ' + zcta + '...')
+            print('Importing ' + name + '...')
 
             wkt = feature.geom.wkt
 
@@ -40,7 +38,8 @@ class Command(BaseCommand):
                 wkt = wkt.replace('POLYGON ((', 'MULTIPOLYGON (((')
                 wkt = wkt + ')'
 
-            postal_code.bounds = GEOSGeometry(wkt)
-            postal_code.center = postal_code.bounds.centroid
+            country.bounds = GEOSGeometry(wkt)
 
-            postal_code.save()
+            country.center = country.bounds.centroid
+
+            country.save()

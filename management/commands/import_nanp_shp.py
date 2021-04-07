@@ -1,3 +1,5 @@
+from __future__ import print_function
+from builtins import str
 from django.contrib.gis.gdal import DataSource
 from django.contrib.gis.geos import GEOSGeometry
 from django.core.management.base import BaseCommand
@@ -17,7 +19,7 @@ class Command(BaseCommand):
 
         layer = data_source[0]
 
-        print ' ' + str(layer.fields)
+        print(' ' + str(layer.fields))
 
         for feature in layer:
             name = str(feature['NPA'])
@@ -30,7 +32,7 @@ class Command(BaseCommand):
             if area_code is None:
                 area_code = PhoneAreaCode(name=name)
 
-            print 'Importing ' + name + '...'
+            print('Importing ' + name + '...')
 
             wkt = feature.geom.wkt
 
