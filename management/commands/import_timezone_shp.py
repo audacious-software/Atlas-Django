@@ -1,5 +1,7 @@
 from __future__ import print_function
-from builtins import str
+
+from builtins import str # pylint: disable=redefined-builtin
+
 from django.contrib.gis.gdal import DataSource
 from django.contrib.gis.geos import GEOSGeometry
 from django.core.management.base import BaseCommand

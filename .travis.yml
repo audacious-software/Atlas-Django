@@ -8,10 +8,11 @@
 # * your_repo
 
 language: python
-dist: trusty
+dist: bionic
 
 python:
   - 2.7
+  - 3.6
 
 services:
   - postgresql
@@ -20,7 +21,7 @@ addons:
   postgresql: 9.5
   apt:
     packages:
-      - postgresql-9.5-postgis-2.3
+      - postgresql-9.5-postgis-2.4
 
 # before_install:
 #  - export DJANGO_SETTINGS_MODULE=healthysms.settings
