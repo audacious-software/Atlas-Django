@@ -31,12 +31,13 @@ jobs:
             sudo apt-get update && sudo apt-get install -y gdal-bin
             python3 -m venv /home/circleci/venv
             . /home/circleci/venv/bin/activate
+            pip install wheel
             pip install -r requirements.txt --progress-bar off
             cd ..
             mv project atlas
             mkdir django
             cd django
-            django-admin.py startproject atlas_site
+            django-admin startproject atlas_site
             mv ../atlas atlas_site
             cd atlas_site
             cp atlas/circle_settings.py atlas_site/settings.py
@@ -76,12 +77,13 @@ jobs:
             sudo apt-get update && sudo apt-get install -y gdal-bin
             virtualenv /home/circleci/venv
             . /home/circleci/venv/bin/activate
+            pip install wheel
             pip install -r requirements.txt --progress-bar off
             cd ..
             mv project atlas
             mkdir django
             cd django
-            django-admin.py startproject atlas_site
+            django-admin startproject atlas_site
             mv ../atlas atlas_site
             cd atlas_site
             cp atlas/circle_settings.py atlas_site/settings.py
