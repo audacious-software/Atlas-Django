@@ -1,7 +1,7 @@
 from django.contrib.gis.db import models
 
 class PostalCode(models.Model):
-    objects = models.GeoManager()
+    objects = models.Manager()
 
     name = models.CharField(max_length=128)
 
@@ -10,14 +10,13 @@ class PostalCode(models.Model):
     country = models.CharField(max_length=2, default="us")
 
 class TimeZone(models.Model):
-    objects = models.GeoManager()
+    objects = models.Manager()
 
     name = models.CharField(max_length=256)
     bounds = models.MultiPolygonField(blank=True, null=True)
 
-
 class Province(models.Model):
-    objects = models.GeoManager()
+    objects = models.Manager()
 
     name = models.CharField(max_length=128)
     abbreviation = models.CharField(max_length=128, null=True, blank=True)
@@ -27,8 +26,17 @@ class Province(models.Model):
     country = models.CharField(max_length=2, default="us")
 
 class PhoneAreaCode(models.Model):
-    objects = models.GeoManager()
+    objects = models.Manager()
 
     name = models.CharField(max_length=256)
+    bounds = models.MultiPolygonField(blank=True, null=True)
+    center = models.PointField(blank=True, null=True)
+
+class Country(models.Model):
+    objects = models.Manager()
+
+    name = models.CharField(max_length=128)
+    abbreviation = models.CharField(max_length=128, null=True, blank=True)
+
     bounds = models.MultiPolygonField(blank=True, null=True)
     center = models.PointField(blank=True, null=True)

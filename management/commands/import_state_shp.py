@@ -1,3 +1,7 @@
+from __future__ import print_function
+
+from builtins import str # pylint: disable=redefined-builtin
+
 from django.contrib.gis.gdal import DataSource
 from django.contrib.gis.geos import GEOSGeometry
 from django.core.management.base import BaseCommand
@@ -14,7 +18,7 @@ class Command(BaseCommand):
 
         layer = data_source[0]
 
-        print ' ' + str(layer.fields)
+        print(' ' + str(layer.fields))
 
         for feature in layer:
             name = str(feature['NAME'])
@@ -28,7 +32,7 @@ class Command(BaseCommand):
             if province is None:
                 province = Province(name=name, abbreviation=abbreviation, country='us')
 
-            print 'Importing ' + name + '...'
+            print('Importing ' + name + '...')
 
             wkt = feature.geom.wkt
 

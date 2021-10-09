@@ -1,6 +1,6 @@
 from django.contrib.gis import admin
 
-from atlas.models import PostalCode, Province, TimeZone, PhoneAreaCode
+from atlas.models import PostalCode, Province, TimeZone, PhoneAreaCode, Country
 
 class PostalCodeAdmin(admin.OSMGeoAdmin):
     list_display = ('name', 'country', 'center')
@@ -29,3 +29,9 @@ class PhoneAreaCodeAdmin(admin.OSMGeoAdmin):
     search_fields = ['name']
 
 admin.site.register(PhoneAreaCode, PhoneAreaCodeAdmin)
+
+class CountryAdmin(admin.OSMGeoAdmin):
+    list_display = ('name',)
+    search_fields = ['name']
+
+admin.site.register(Country, CountryAdmin)

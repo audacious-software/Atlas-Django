@@ -32,22 +32,23 @@ jobs:
             python3 -m venv /home/circleci/venv
             . /home/circleci/venv/bin/activate
             pip install --upgrade pip
+            pip install wheel
             pip install -r requirements.txt --progress-bar off
             cd ..
             mv project atlas
             mkdir django
             cd django
-            django-admin.py startproject atlas_test
-            mv ../atlas atlas_test
-            cd atlas_test
-            cp atlas/circle_settings.py atlas_test/settings.py
+            django-admin startproject atlas_site
+            mv ../atlas atlas_site
+            cd atlas_site
+            cp atlas/circle_settings.py atlas_site/settings.py
             python manage.py migrate
             python manage.py test
             cp atlas/.pylintrc .
             pylint atlas
             bandit -r .      
       - save_cache:
-          key: venv-38-{{ .Branch }}-{{ checksum "/home/circleci/django/atlas_test/atlas/requirements.txt" }}
+          key: venv-38-{{ .Branch }}-{{ checksum "/home/circleci/django/atlas_site/atlas/requirements.txt" }}
           paths:
             - "/home/circleci/venv"
       - store_test_results:
@@ -78,22 +79,23 @@ jobs:
             virtualenv /home/circleci/venv
             . /home/circleci/venv/bin/activate
             pip install --upgrade pip
+            pip install wheel
             pip install -r requirements.txt --progress-bar off
             cd ..
             mv project atlas
             mkdir django
             cd django
-            django-admin.py startproject atlas_test
-            mv ../atlas atlas_test
-            cd atlas_test
-            cp atlas/circle_settings.py atlas_test/settings.py
+            django-admin startproject atlas_site
+            mv ../atlas atlas_site
+            cd atlas_site
+            cp atlas/circle_settings.py atlas_site/settings.py
             python manage.py migrate
             python manage.py test
             cp atlas/.pylintrc .
             pylint atlas
             bandit -r .      
       - save_cache:
-          key: venv-27-{{ .Branch }}-{{ checksum "/home/circleci/django/atlas_test/atlas/requirements.txt" }}
+          key: venv-27-{{ .Branch }}-{{ checksum "/home/circleci/django/atlas_site/atlas/requirements.txt" }}
           paths:
             - "/home/circleci/venv"
       - store_test_results:
